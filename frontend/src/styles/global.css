@@ -585,6 +585,28 @@ a.link:hover {
   font-size: 0.9rem;
 }
 
+.field textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.field .optional-tag {
+  font-weight: 500;
+  font-size: 0.76rem;
+  color: var(--muted);
+  text-transform: none;
+}
+
+.mb-md-form {
+  margin-bottom: 0.9rem;
+  margin-top: 0;
+}
+
+.task-assignment-card {
+  scroll-margin-top: 1rem;
+}
+
 .field select.multi {
   min-height: 120px;
 }

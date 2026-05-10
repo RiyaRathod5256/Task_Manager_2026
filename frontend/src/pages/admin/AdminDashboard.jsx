@@ -22,6 +22,7 @@ export default function AdminDashboard() {
     project_id: "",
     assigned_to_user_id: "",
     title: "",
+    description: "",
     due_date: "",
   });
 
@@ -85,12 +86,13 @@ export default function AdminDashboard() {
     try {
       await api.post("/tasks", {
         title: form.title.trim(),
+        description: form.description.trim() || undefined,
         project_id: Number(form.project_id),
         assigned_to_user_id: Number(form.assigned_to_user_id),
         due_date: form.due_date,
       });
       setFormMsg("Task assigned.");
-      setForm((f) => ({ ...f, title: "", due_date: "" }));
+      setForm((f) => ({ ...f, title: "", description: "", due_date: "" }));
       refreshTasks();
       loadDashboard();
     } catch (err) {
@@ -287,8 +289,11 @@ export default function AdminDashboard() {
           </div>
 
           <div className="grid-2-eq split-bottom">
-            <div className="card">
+            <div className="card task-assignment-card">
               <h2 className="card-title-sm">Task assignment</h2>
+              <p className="muted sm mb-md-form">
+                Choose a project, describe the task, then pick who will do it.
+              </p>
               <form className="stack-md form-compact" onSubmit={submitAssignment}>
                 <label className="field">
                   <span>Select project</span>
@@ -312,6 +317,26 @@ export default function AdminDashboard() {
                   </select>
                 </label>
                 <label className="field">
+                  <span>Task title</span>
+                  <input
+                    required
+                    value={form.title}
+                    placeholder="e.g. Design homepage wireframes"
+                    onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
+                  />
+                </label>
+                <label className="field">
+                  <span>Task details <span className="optional-tag">optional</span></span>
+                  <textarea
+                    rows={4}
+                    value={form.description}
+                    placeholder="What should be done, acceptance criteria, links…"
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, description: e.target.value }))
+                    }
+                  />
+                </label>
+                <label className="field">
                   <span>Assign to</span>
                   <select
                     required
@@ -320,21 +345,19 @@ export default function AdminDashboard() {
                       setForm((f) => ({ ...f, assigned_to_user_id: e.target.value }))
                     }
                   >
-                    <option value="">—</option>
+                    <option value="">
+                      {form.project_id
+                        ? assignmentMembers.length
+                          ? "— choose member —"
+                          : "No members on this project — add them from the project page"
+                        : "— select a project first —"}
+                    </option>
                     {assignmentMembers.map((m) => (
                       <option key={m.id} value={m.id}>
                         {m.full_name}
                       </option>
                     ))}
                   </select>
-                </label>
-                <label className="field">
-                  <span>Task title</span>
-                  <input
-                    required
-                    value={form.title}
-                    onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
-                  />
                 </label>
                 <label className="field">
                   <span>Due date</span>
