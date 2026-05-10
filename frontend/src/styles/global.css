@@ -591,13 +591,6 @@ a.link:hover {
   line-height: 1.45;
 }
 
-.field .optional-tag {
-  font-weight: 500;
-  font-size: 0.76rem;
-  color: var(--muted);
-  text-transform: none;
-}
-
 .mb-md-form {
   margin-bottom: 0.9rem;
   margin-top: 0;
