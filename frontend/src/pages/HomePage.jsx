@@ -6,7 +6,7 @@ export default function HomePage() {
       <header className="marketing-nav">
         <div className="brand-mark">
           <span className="brand-pink">TASK</span>{" "}
-          <span className="brand-blue">TRACKER</span>
+          <span className="brand-blue">Manager</span>
         </div>
         <nav className="marketing-links">
           <Link to="/">Home</Link>
