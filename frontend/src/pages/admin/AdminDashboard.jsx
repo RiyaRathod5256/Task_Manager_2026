@@ -124,6 +124,28 @@ export default function AdminDashboard() {
     });
   }
 
+  async function deleteProject(projectId, projectName) {
+    if (
+      !window.confirm(
+        `Delete project "${projectName}"? All tasks in this project will be removed.`
+      )
+    ) {
+      return;
+    }
+    setProjectsErr("");
+    try {
+      await api.delete(`/projects/${projectId}`);
+      if (String(form.project_id) === String(projectId)) {
+        setForm((f) => ({ ...f, project_id: "", assigned_to_user_id: "" }));
+        setAssignmentMembers([]);
+      }
+      await loadDashboard();
+      await refreshTasks();
+    } catch (e) {
+      setProjectsErr(e.response?.data?.error || "Could not delete project");
+    }
+  }
+
   const chartPieces = useMemo(() => {
     if (!stats) return [];
     return [
@@ -199,6 +221,7 @@ export default function AdminDashboard() {
                 <th>Team</th>
                 <th>Tasks</th>
                 <th>Status</th>
+                <th className="col-actions-right">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -235,6 +258,15 @@ export default function AdminDashboard() {
                   </td>
                   <td>
                     <Badge status={p.status} />
+                  </td>
+                  <td className="col-actions-right">
+                    <button
+                      type="button"
+                      className="btn danger sm"
+                      onClick={() => deleteProject(p.id, p.name)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}

@@ -90,6 +90,20 @@ def get_project(project_id: int):
     return jsonify(project_to_dict_detail(project))
 
 
+@bp.delete("/projects/<int:project_id>")
+@jwt_required()
+@admin_required
+def delete_project(project_id: int):
+    project = Project.query.options(joinedload(Project.members)).get(project_id)
+    if not project:
+        return jsonify({"error": "Not found"}), 404
+    Task.query.filter_by(project_id=project_id).delete(synchronize_session=False)
+    project.members.clear()
+    db.session.delete(project)
+    db.session.commit()
+    return jsonify({"ok": True})
+
+
 @bp.patch("/projects/<int:project_id>")
 @jwt_required()
 @admin_required

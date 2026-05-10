@@ -7,6 +7,7 @@ export default function AdminMemberTasksPage() {
   const { projectId, memberId } = useParams();
   const [payload, setPayload] = useState(null);
   const [error, setError] = useState("");
+  const [actionError, setActionError] = useState("");
   const [busyId, setBusyId] = useState(null);
 
   useEffect(() => {
@@ -24,6 +25,23 @@ export default function AdminMemberTasksPage() {
         `/projects/${projectId}/members/${memberId}/tasks`
       );
       setPayload(data);
+    } finally {
+      setBusyId(null);
+    }
+  }
+
+  async function removeTask(taskId, title) {
+    if (!window.confirm(`Remove task "${title}" from this member?`)) return;
+    setActionError("");
+    setBusyId(taskId);
+    try {
+      await api.delete(`/tasks/${taskId}`);
+      const { data } = await api.get(
+        `/projects/${projectId}/members/${memberId}/tasks`
+      );
+      setPayload(data);
+    } catch (e) {
+      setActionError(e.response?.data?.error || "Could not remove task");
     } finally {
       setBusyId(null);
     }
@@ -57,6 +75,7 @@ export default function AdminMemberTasksPage() {
 
       <section className="card">
         <h2 className="card-title-sm">Tasks in project</h2>
+        {actionError && <div className="banner error compact">{actionError}</div>}
         {!payload.tasks.length && (
           <p className="muted sm">No tasks assigned yet for this person.</p>
         )}
@@ -79,6 +98,14 @@ export default function AdminMemberTasksPage() {
                   <option value="in_progress">In progress</option>
                   <option value="completed">Completed</option>
                 </select>
+                <button
+                  type="button"
+                  className="btn danger sm"
+                  disabled={busyId === t.id}
+                  onClick={() => removeTask(t.id, t.title)}
+                >
+                  Remove
+                </button>
               </div>
             </li>
           ))}

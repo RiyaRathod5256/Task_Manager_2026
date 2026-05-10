@@ -644,6 +644,21 @@ a.link:hover {
   color: #b91c1c;
 }
 
+.btn.danger {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.btn.danger:hover:not(:disabled) {
+  background: #fee2e2;
+}
+
+.col-actions-right {
+  text-align: right;
+  white-space: nowrap;
+}
+
 .dashboard-toolbar {
   display: flex;
   justify-content: flex-end;
@@ -831,6 +846,7 @@ a.link:hover {
 .admin-task-tail {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 
