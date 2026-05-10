@@ -991,3 +991,149 @@ body.sidebar-collapsed .app-shell {
 .stat-num.urgent {
   color: #b91c1c;
 }
+
+.public-home {
+  min-height: 100vh;
+  background: linear-gradient(130deg, #ffffff 0%, #f5f7ff 45%, #eef8ff 100%);
+}
+
+.marketing-nav {
+  height: 72px;
+  border-bottom: 1px solid #e6e9f4;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background: #fff;
+}
+
+.brand-mark {
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  font-size: 1.55rem;
+}
+
+.brand-pink {
+  color: #ec4899;
+}
+
+.brand-blue {
+  color: #1e3a8a;
+}
+
+.brand-cyan {
+  color: #06b6d4;
+}
+
+.marketing-links {
+  display: flex;
+  align-items: center;
+  gap: 1.05rem;
+}
+
+.marketing-links a {
+  text-decoration: none;
+  color: #1f2937;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.marketing-links a:hover {
+  color: var(--accent);
+}
+
+.marketing-links .marketing-cta {
+  color: #fff;
+  background: linear-gradient(135deg, #f472b6, #ec4899);
+  border-radius: 10px;
+  padding: 0.45rem 0.8rem;
+}
+
+.marketing-hero-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 1.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.marketing-title {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.15rem);
+  line-height: 1.1;
+}
+
+.marketing-subtitle {
+  margin: 1rem 0 0.6rem;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  color: #111827;
+}
+
+.marketing-copy {
+  margin: 0;
+  color: #4b5563;
+  max-width: 62ch;
+}
+
+.marketing-actions {
+  margin-top: 1.4rem;
+  display: flex;
+  gap: 0.65rem;
+}
+
+.marketing-hero-right .hero-card {
+  background: #fff;
+  border: 1px solid #dfe4f4;
+  border-radius: 18px;
+  padding: 1.2rem 1.3rem;
+  box-shadow: 0 20px 50px rgba(20, 24, 60, 0.08);
+}
+
+.hero-card h3 {
+  margin-top: 0;
+  font-size: 1.4rem;
+  color: #1e3a8a;
+}
+
+.hero-card ul {
+  margin: 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.6rem;
+  color: #374151;
+}
+
+.about-strip {
+  max-width: 1200px;
+  margin: 1.5rem auto 0;
+  border-top: 1px solid #e7eaf6;
+  padding: 1.5rem 2rem 2.5rem;
+}
+
+.about-strip h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.about-strip p {
+  color: #4b5563;
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .marketing-nav {
+    padding: 0 1rem;
+  }
+  .brand-mark {
+    font-size: 1.2rem;
+  }
+  .marketing-hero-wrap {
+    grid-template-columns: 1fr;
+    padding: 1.5rem 1rem 1rem;
+  }
+  .about-strip {
+    padding: 1.2rem 1rem 1.6rem;
+  }
+}

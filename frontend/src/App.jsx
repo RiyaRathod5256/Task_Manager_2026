@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/AuthContext.jsx";
+import HomePage from "./pages/HomePage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
@@ -40,9 +41,10 @@ function HomeRedirect() {
 export default function App() {
   return (
     <Routes>
+      <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/" element={<HomeRedirect />} />
+      <Route path="/app" element={<HomeRedirect />} />
 
       <Route
         element={
@@ -69,7 +71,7 @@ export default function App() {
         <Route path="/member/dashboard" element={<MemberDashboard />} />
       </Route>
 
-      <Route path="*" element={<HomeRedirect />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
