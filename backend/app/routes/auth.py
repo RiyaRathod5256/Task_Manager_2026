@@ -33,6 +33,12 @@ PASSWORD_PATTERN = (
     r'[A-Za-z\d@$!%*?&]{8,15}$'
 )
 
+# Full name: 2–120 chars, Unicode letters, spaces / . ' - between parts (matches DB column)
+FULL_NAME_PATTERN = re.compile(
+    r'^(?=.{2,120}$)[^\W\d_]+(?:[\s\'.\-]+[^\W\d_]+)*$',
+    re.UNICODE,
+)
+
 
 def user_to_dict(u: User) -> dict:
     return {
@@ -49,12 +55,21 @@ def register():
 
     email = (data.get("email") or "").strip().lower()
     password = data.get("password") or ""
-    full_name = (data.get("full_name") or "").strip()
+    full_name = " ".join((data.get("full_name") or "").split())
 
     # Required fields validation
     if not email or not password or not full_name:
         return jsonify({
             "error": "email, password, and full_name are required"
+        }), 400
+
+    # Full name validation
+    if not FULL_NAME_PATTERN.match(full_name):
+        return jsonify({
+            "error": (
+                "Full name must be 2–120 characters, use letters only, "
+                "and may include spaces, hyphens, apostrophes, or periods between parts."
+            )
         }), 400
 
     # Email validation
@@ -130,8 +145,12 @@ def login():
     # Find user
     user = User.query.filter_by(email=email).first()
 
-    # Validate credentials
-    if not user or not user.check_password(password):
+    if not user:
+        return jsonify({
+            "error": "User does not exist"
+        }), 401
+
+    if not user.check_password(password):
         return jsonify({
             "error": "Invalid email or password"
         }), 401

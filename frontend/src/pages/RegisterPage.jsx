@@ -19,6 +19,10 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Full name: 2–120 chars, letters (any language), spaces and . ' - between parts
+  const fullNamePattern =
+    /^(?=.{2,120}$)[\p{L}]+(?:[\s'.-]+[\p{L}]+)*$/u;
+
   // Email regex
   const emailPattern =
     /^[A-Za-z][A-Za-z0-9._%+-]*@[A-Za-z0-9]+([.-][A-Za-z0-9]+)*\.[A-Za-z]{2,}$/;
@@ -53,12 +57,22 @@ export default function RegisterPage() {
     setError("");
     setLoading(true);
 
-    const cleanName = fullName.trim();
+    const cleanName = fullName.trim().replace(/\s+/g, " ");
     const cleanEmail = email.trim();
 
     // Full Name Validation
     if (!cleanName) {
       setError("Full name is required.");
+      setLoading(false);
+      return;
+    }
+
+    if (!fullNamePattern.test(cleanName)) {
+      setError(
+        "Enter a valid full name (2–120 characters).\n\n" +
+          "Use letters only; you may use spaces, hyphens, apostrophes, or periods between name parts.\n\n" +
+          "Examples: Maria Garcia, Jean-Luc, O'Brien"
+      );
       setLoading(false);
       return;
     }
