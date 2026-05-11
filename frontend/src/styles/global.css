@@ -1,3 +1,9 @@
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 :root {
   font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   line-height: 1.45;
@@ -50,6 +56,10 @@ a.link:hover {
   min-height: 100vh;
 }
 
+.app-shell--admin {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .sidebar {
   background: linear-gradient(180deg, #1d1f2f 0%, #141528 88%);
   color: #dfe3ff;
@@ -88,6 +98,80 @@ a.link:hover {
   flex-direction: column;
   gap: 2px;
   flex: 1;
+}
+
+.sidebar--member .sidebar-nav {
+  flex: 0 0 auto;
+}
+
+.sidebar-chart-block {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.sidebar-chart-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+  margin-bottom: 0.25rem;
+}
+
+.sidebar-chart-caption {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  opacity: 0.65;
+  line-height: 1.35;
+}
+
+.sidebar-chart-muted {
+  margin: 0;
+  font-size: 0.78rem;
+  opacity: 0.55;
+}
+
+.sidebar-chart-muted.center {
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.sidebar-chart-zone {
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 160px;
+}
+
+.sidebar-legend-check {
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  overflow-y: auto;
+  max-height: 120px;
+}
+
+.sidebar-legend-check label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  opacity: 0.92;
+}
+
+.sidebar-legend-check .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  flex-shrink: 0;
 }
 
 .nav-row {
@@ -187,6 +271,19 @@ a.link:hover {
   font-weight: 700;
 }
 
+.header-admin-home {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: #1e3a8a;
+  font-size: 1.05rem;
+  margin-right: 0.25rem;
+}
+
+.header-admin-home:hover {
+  color: var(--accent);
+}
+
 .top-header-right {
   display: flex;
   align-items: center;
@@ -255,6 +352,7 @@ a.link:hover {
 .page-content {
   padding: 1.6rem 1.9rem 2.5rem;
   flex: 1;
+  min-width: 0;
 }
 
 .card {
@@ -285,6 +383,7 @@ a.link:hover {
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+  min-width: 0;
 }
 
 .muted {
@@ -326,6 +425,10 @@ a.link:hover {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.stats-row.cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .stats-row.cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -338,6 +441,7 @@ a.link:hover {
 
 @media (max-width: 640px) {
   .stats-row.cols-4,
+  .stats-row.cols-3,
   .stats-row.cols-2 {
     grid-template-columns: 1fr;
   }
@@ -389,6 +493,33 @@ a.link:hover {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
   gap: 1.25rem;
   align-items: start;
+  min-width: 0;
+}
+
+/* Let grid columns shrink below intrinsic table width so overflow stays inside the card */
+.grid-2-large > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.table-responsive-shell {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+
+/* Wide enough for status + Delete; shell scrolls if the column is still tight */
+.nice-table-projects {
+  width: max-content;
+  min-width: 100%;
+}
+
+.col-status-cell {
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
 @media (max-width: 1100px) {
@@ -411,7 +542,16 @@ a.link:hover {
 
 .table-card {
   padding: 0;
-  overflow: hidden;
+  /* Allow horizontal scroll when the table is wider than the grid column
+     (prevents Delete / controls from being clipped by overflow: hidden). */
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Inner shell handles horizontal scroll; card must not clip the scrollbar/buttons */
+.projects-table-card {
+  overflow: visible;
 }
 
 .card-head-split {
@@ -657,6 +797,10 @@ a.link:hover {
 .col-actions-right {
   text-align: right;
   white-space: nowrap;
+  width: 1%;
+  vertical-align: middle;
+  padding-right: 1.25rem !important;
+  padding-left: 0.75rem;
 }
 
 .dashboard-toolbar {
@@ -666,6 +810,10 @@ a.link:hover {
 
 .chart-card .card-title-sm {
   padding-bottom: 0.25rem;
+}
+
+.chart-card .chart-caption {
+  margin: 0.15rem 0 0.65rem;
 }
 
 .chart-zone {
@@ -1013,6 +1161,11 @@ body.sidebar-collapsed .app-shell {
   font-size: 1.55rem;
 }
 
+.brand-mark-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .brand-pink {
   color: #ec4899;
 }
@@ -1105,11 +1258,89 @@ body.sidebar-collapsed .app-shell {
   color: #374151;
 }
 
+.features-section {
+  background: #f3f6fb;
+  padding: 3.25rem 2rem 3.5rem;
+  text-align: center;
+}
+
+.features-heading {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 800;
+  color: #1e3a8a;
+  letter-spacing: -0.02em;
+}
+
+.features-sub {
+  margin: 0.55rem auto 0;
+  max-width: 36rem;
+  color: #6b7280;
+  font-size: 1.02rem;
+}
+
+.features-grid {
+  max-width: 1100px;
+  margin: 2.25rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  position: relative;
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.65rem 1.35rem 1.5rem;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.feature-card-accent {
+  position: absolute;
+  top: 0;
+  left: 1.25rem;
+  right: 1.25rem;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  border-radius: 0 0 6px 6px;
+}
+
+.feature-icon-wrap {
+  margin-top: 0.35rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #3b82f6, #2563eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1e40af;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+.feature-card-title {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #1e3a8a;
+}
+
+.feature-card-desc {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #6b7280;
+}
+
 .about-strip {
   max-width: 1200px;
-  margin: 1.5rem auto 0;
+  margin: 0 auto;
   border-top: 1px solid #e7eaf6;
-  padding: 1.5rem 2rem 2.5rem;
+  padding: 2rem 2rem 2rem;
 }
 
 .about-strip h3 {
@@ -1120,6 +1351,125 @@ body.sidebar-collapsed .app-shell {
 .about-strip p {
   color: #4b5563;
   margin-bottom: 0;
+}
+
+.how-it-works-strip {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 2rem 2.5rem;
+}
+
+.how-it-works-title {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+  color: #1e3a8a;
+}
+
+.how-it-works-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #4b5563;
+  display: grid;
+  gap: 0.5rem;
+  line-height: 1.5;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.marketing-footer {
+  background: linear-gradient(165deg, #0c2d5c 0%, #0a1f3d 55%, #071528 100%);
+  color: rgba(255, 255, 255, 0.92);
+  padding: 2.75rem 2rem 1.5rem;
+}
+
+.marketing-footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) minmax(0, 1.1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.footer-logo {
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  font-size: 1.35rem;
+  margin-bottom: 0.65rem;
+}
+
+.footer-tagline {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.78);
+  max-width: 28ch;
+}
+
+.footer-col-title {
+  margin: 0 0 0.85rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.footer-links,
+.footer-contact {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-size: 0.93rem;
+}
+
+.footer-links a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-contact li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.footer-contact a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.footer-contact a:hover {
+  text-decoration: underline;
+}
+
+.footer-contact-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  opacity: 0.9;
+}
+
+.footer-rule {
+  max-width: 1100px;
+  margin: 2rem auto 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.footer-copy {
+  margin: 1rem 0 0;
+  text-align: center;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 @media (max-width: 900px) {
@@ -1133,7 +1483,23 @@ body.sidebar-collapsed .app-shell {
     grid-template-columns: 1fr;
     padding: 1.5rem 1rem 1rem;
   }
+  .features-section {
+    padding: 2.25rem 1rem 2.5rem;
+  }
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
   .about-strip {
-    padding: 1.2rem 1rem 1.6rem;
+    padding: 1.5rem 1rem;
+  }
+  .how-it-works-strip {
+    padding: 0 1rem 2rem;
+  }
+  .marketing-footer-inner {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+  .marketing-footer {
+    padding: 2rem 1rem 1.25rem;
   }
 }

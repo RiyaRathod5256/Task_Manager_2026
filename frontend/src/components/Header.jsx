@@ -1,31 +1,38 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
 export default function Header({ variant }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const title = variant === "admin" ? "Admin Dashboard" : "My workspace";
+  const isAdmin = variant === "admin";
+  const title = isAdmin ? "Admin Dashboard" : "My workspace";
 
   return (
     <header className="top-header">
       <div className="top-header-left">
-        <button
-          type="button"
-          className="icon-btn"
-          aria-label="Menu"
-          onClick={() => document.body.classList.toggle("sidebar-collapsed")}
-        >
-          ☰
-        </button>
+        {!isAdmin ? (
+          <button
+            type="button"
+            className="icon-btn"
+            aria-label="Menu"
+            onClick={() => document.body.classList.toggle("sidebar-collapsed")}
+          >
+            ☰
+          </button>
+        ) : (
+          <Link to="/admin/dashboard" className="header-admin-home">
+            Team Manager
+          </Link>
+        )}
         <h1 className="page-title">{title}</h1>
       </div>
 
       <div className="top-header-right">
-        <button type="button" className="icon-btn muted" aria-label="Notifications">
+        {/* <button type="button" className="icon-btn muted" aria-label="Notifications">
           🔔
-        </button>
+        </button> */}
 
         <div className="header-profile-wrap">
           <button

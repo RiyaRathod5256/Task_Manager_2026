@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
+import MemberSidebarChart from "./MemberSidebarChart.jsx";
 
 const adminLinks = [
   { to: "/admin/dashboard", label: "Dashboard" },
@@ -21,7 +22,7 @@ export default function Sidebar({ variant }) {
   const isAdmin = variant === "admin";
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar${isAdmin ? "" : " sidebar--member"}`}>
       <div className="sidebar-brand">TeamTasks</div>
       <div className="sidebar-user">
         <div className="avatar sm" aria-hidden>
@@ -48,6 +49,8 @@ export default function Sidebar({ variant }) {
             </NavLink>
           )}
       </nav>
+
+      {!isAdmin && <MemberSidebarChart />}
 
       <button type="button" className="btn-logout" onClick={() => logout()}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">

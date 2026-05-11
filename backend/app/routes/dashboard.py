@@ -19,6 +19,8 @@ def admin_dashboard_stats():
     in_progress = Task.query.filter_by(status="in_progress").count()
     completed = Task.query.filter_by(status="completed").count()
     pending = Task.query.filter_by(status="pending").count()
+    projects_in_progress = Project.query.filter_by(status="in_progress").count()
+    projects_completed = Project.query.filter_by(status="completed").count()
     return jsonify(
         {
             "total_projects": total_projects,
@@ -26,6 +28,8 @@ def admin_dashboard_stats():
             "in_progress_tasks": in_progress,
             "completed_tasks": completed,
             "pending_tasks": pending,
+            "projects_in_progress": projects_in_progress,
+            "projects_completed": projects_completed,
         }
     )
 
@@ -76,13 +80,15 @@ def _task_detail(t: Task) -> dict:
 @bp.get("/member/project-stats")
 @jwt_required()
 def member_project_stats():
-    """Small summary for member home if needed."""
+    """Counts for member dashboard + sidebar chart (assigned tasks only)."""
     from flask_jwt_extended import get_jwt_identity
 
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
     if not user:
         return jsonify({"error": "Unauthorized"}), 401
+    if user.role == "admin":
+        return jsonify({"error": "Use admin endpoints"}), 400
 
     overdue = Task.query.filter(
         Task.assigned_to_id == user_id,
@@ -92,4 +98,21 @@ def member_project_stats():
     open_tasks = Task.query.filter(
         Task.assigned_to_id == user_id, Task.status != "completed"
     ).count()
-    return jsonify({"open_tasks": open_tasks, "overdue_tasks": overdue})
+    completed_tasks = Task.query.filter_by(
+        assigned_to_id=user_id, status="completed"
+    ).count()
+    in_progress_tasks = Task.query.filter_by(
+        assigned_to_id=user_id, status="in_progress"
+    ).count()
+    pending_tasks = Task.query.filter_by(
+        assigned_to_id=user_id, status="pending"
+    ).count()
+    return jsonify(
+        {
+            "open_tasks": open_tasks,
+            "overdue_tasks": overdue,
+            "completed_tasks": completed_tasks,
+            "in_progress_tasks": in_progress_tasks,
+            "pending_tasks": pending_tasks,
+        }
+    )

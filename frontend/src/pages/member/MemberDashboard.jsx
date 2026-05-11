@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import api from "../../api/client.js";
+import { notifyMemberStatsChanged } from "../../utils/memberStatsEvents.js";
 import { formatDisplayDate } from "../../utils/dates.js";
 
 export default function MemberDashboard() {
@@ -55,10 +56,14 @@ export default function MemberDashboard() {
 
   return (
     <div className="stack-lg">
-      <div className="stats-row cols-2 member-summary">
+      <div className="stats-row cols-3 member-summary">
         <div className="stat-card subtle">
           <div className="stat-label">Open tasks</div>
           <div className="stat-num">{stats?.open_tasks ?? "—"}</div>
+        </div>
+        <div className="stat-card subtle">
+          <div className="stat-label">Completed</div>
+          <div className="stat-num">{stats?.completed_tasks ?? "—"}</div>
         </div>
         <div className="stat-card subtle">
           <div className="stat-label">Overdue</div>
@@ -99,6 +104,7 @@ export default function MemberDashboard() {
                         updateTaskLocal(group.project_id, tid, status);
                         const { data } = await api.get("/member/project-stats");
                         setStats(data);
+                        notifyMemberStatsChanged();
                       }}
                     />
                   </div>

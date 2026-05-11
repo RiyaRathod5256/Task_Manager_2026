@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   ResponsiveContainer,
   PieChart,
@@ -11,6 +11,7 @@ import api from "../../api/client.js";
 import { formatDisplayDate } from "../../utils/dates.js";
 
 export default function AdminDashboard() {
+  const location = useLocation();
   const [stats, setStats] = useState(null);
   const [projects, setProjects] = useState([]);
   const [tasks, setTasks] = useState([]);
@@ -46,13 +47,31 @@ export default function AdminDashboard() {
   }, []);
 
   const refreshTasks = useCallback(async () => {
-    const { data } = await api.get("/tasks/recent", { params: { q } });
-    setTasks(data.tasks);
+    try {
+      const [{ data: taskData }, { data: s }] = await Promise.all([
+        api.get("/tasks/recent", { params: { q } }),
+        api.get("/admin/dashboard-stats"),
+      ]);
+      setTasks(taskData.tasks);
+      setStats(s);
+    } catch {
+      setTasks([]);
+    }
   }, [q]);
 
   useEffect(() => {
     loadDashboard().catch((e) => setProjectsErr(e.response?.data?.error || "Load failed"));
   }, [loadDashboard]);
+
+  useEffect(() => {
+    function onVisible() {
+      if (document.visibilityState !== "visible") return;
+      if (location.pathname !== "/admin/dashboard") return;
+      loadDashboard().catch(() => {});
+    }
+    document.addEventListener("visibilitychange", onVisible);
+    return () => document.removeEventListener("visibilitychange", onVisible);
+  }, [location.pathname, loadDashboard]);
 
   useEffect(() => {
     const id = window.setTimeout(() => {
@@ -145,7 +164,37 @@ export default function AdminDashboard() {
       setProjectsErr(e.response?.data?.error || "Could not delete project");
     }
   }
-
+  async function toggleProjectStatus(
+    projectId,
+    newStatus
+  ) {
+    try {
+      await api.patch(
+        `/projects/${projectId}`,
+        {
+          status: newStatus,
+        }
+      );
+  
+      setProjects((prev) =>
+        prev.map((project) =>
+          project.id === projectId
+            ? {
+                ...project,
+                status: newStatus,
+              }
+            : project
+        )
+      );
+      await loadDashboard();
+      await refreshTasks();
+    } catch (err) {
+      setProjectsErr(
+        err.response?.data?.error ||
+          "Could not update project status"
+      );
+    }
+  }
   const chartPieces = useMemo(() => {
     if (!stats) return [];
     return [
@@ -200,31 +249,37 @@ export default function AdminDashboard() {
         <StatCard label="Total projects" value={stats.total_projects} icon="📁" foot="Manage projects →" />
         <StatCard label="Total tasks" value={stats.total_tasks} icon="✓" foot="Across all teams →" />
         <StatCard
-          label="In progress"
-          value={stats.in_progress_tasks}
+          label="Projects in progress"
+          value={stats.projects_in_progress ?? stats.in_progress_tasks}
           icon="◷"
-          foot="Review pipeline →"
+          foot="Matches project status →"
         />
-        <StatCard label="Completed tasks" value={stats.completed_tasks} icon="◎" foot="Celebrate wins →" />
+        <StatCard
+          label="Projects completed"
+          value={stats.projects_completed ?? stats.completed_tasks}
+          icon="◎"
+          foot="Matches project status →"
+        />
       </section>
 
       <div className="grid-2-large">
-        <div className="card table-card">
+        <div className="card table-card projects-table-card">
           <header className="card-head-split">
             <h2 className="card-title-sm">Projects</h2>
             <span className="muted sm">{projects.length} total</span>
           </header>
-          <table className="nice-table">
-            <thead>
-              <tr>
-                <th>Project</th>
-                <th>Team</th>
-                <th>Tasks</th>
-                <th>Status</th>
-                <th className="col-actions-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+          <div className="table-responsive-shell">
+            <table className="nice-table nice-table-projects">
+              <thead>
+                <tr>
+                  <th>Project</th>
+                  <th>Team</th>
+                  <th>Tasks</th>
+                  <th>Status</th>
+                  <th className="col-actions-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
               {projects.map((p) => (
                 <tr key={p.id}>
                   <td>
@@ -256,8 +311,18 @@ export default function AdminDashboard() {
                       {p.tasks_summary.done}/{p.tasks_summary.total || 0}
                     </span>
                   </td>
-                  <td>
-                    <Badge status={p.status} />
+              
+                  <td className="col-status-cell">
+                    <select
+                      className="status-select-compact"
+                      value={p.status}
+                      onChange={(e) =>
+                        toggleProjectStatus(p.id, e.target.value)
+                      }
+                    >
+                      <option value="in_progress">In Progress</option>
+                      <option value="completed">Completed</option>
+                    </select>
                   </td>
                   <td className="col-actions-right">
                     <button
@@ -270,8 +335,9 @@ export default function AdminDashboard() {
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div className="stack-md">
@@ -402,9 +468,16 @@ export default function AdminDashboard() {
 
             <div className="card chart-card">
               <h2 className="card-title-sm">Tasks overview</h2>
+              <p className="muted sm chart-caption">
+                Donut reflects task status (pending / in progress / completed).
+              </p>
               <div className="chart-zone">
                 {totalVisible > 0 ? (
-                  <ResponsiveContainer width="100%" height={220}>
+                  <ResponsiveContainer
+                    width="100%"
+                    height={220}
+                    key={`overview-${stats.completed_tasks}-${stats.in_progress_tasks}-${stats.pending_tasks}`}
+                  >
                     <PieChart>
                       <Pie
                         data={visibleData}
