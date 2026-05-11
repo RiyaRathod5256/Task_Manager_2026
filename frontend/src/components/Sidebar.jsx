@@ -23,7 +23,7 @@ export default function Sidebar({ variant }) {
 
   return (
     <aside className={`sidebar${isAdmin ? "" : " sidebar--member"}`}>
-      <div className="sidebar-brand">TeamTasks</div>
+      <div className="sidebar-brand">Tasks Manager</div>
       <div className="sidebar-user">
         <div className="avatar sm" aria-hidden>
           {(user?.full_name || "U")[0]}
