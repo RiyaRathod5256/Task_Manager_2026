@@ -1,0 +1,27 @@
+
+.venv/
+frontend/node_modules/
+frontend/dist/
+
+# frontend env files
+frontend/.env
+frontend/.env.local
+
+
+
+
+backend/.venv/
+
+# Python cache
+backend/**/__pycache__/
+backend/**/*.pyc
+
+# database
+backend/*.db
+
+# backend env files
+backend/.env
+
+
+.vscode/
+.DS_Store

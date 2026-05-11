@@ -379,8 +379,8 @@ export default function AdminDashboard() {
                         {t.title}
                       </td>
                       <td>{t.project_name}</td>
-                      <td title={t.assigned_name}>
-                        <span className="avatar sm inline">{t.assigned_name?.[0] || "?"}</span>
+                      <td>
+                        {t.assigned_name || <span className="muted">Unassigned</span>}
                       </td>
                       <td>{formatDisplayDate(t.due_date)}</td>
                       <td>
@@ -456,12 +456,13 @@ export default function AdminDashboard() {
                 <label className="field">
                   <span>Due date</span>
                   <input
-                    type="date"
-                    required
-                    value={form.due_date}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, due_date: e.target.value }))
-                    }
+                  type="date"
+                  required
+                  min={new Date().toISOString().split("T")[0]}
+                  value={form.due_date}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, due_date: e.target.value }))
+                  }
                   />
                 </label>
                 {formMsg && (

@@ -114,7 +114,7 @@ export default function RegisterPage() {
       <header className="land-nav">
         <Link to="/" className="land-brand">
           <span className="land-brand-pink">TASK</span>
-          <span className="land-brand-navy"> TRACKER</span>
+          <span className="land-brand-navy">MANAGER</span>
         </Link>
         <nav className="land-nav-links">
           <Link to="/">Home</Link>
