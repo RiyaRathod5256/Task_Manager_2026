@@ -1,230 +1,312 @@
 import { Link } from "react-router-dom";
 
-function IconBox() {
+function IconFolder({ className }) {
   return (
-    <span className="feature-icon-wrap" aria-hidden>
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="none">
-        <path
-          d="M4 7h16v10H4V7z"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          fill="#f59e0b"
-          fillOpacity="0.35"
-        />
-        <path
-          d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-      </svg>
-    </span>
+    <svg className={className} viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.7">
+      <path d="M3 7h7l2 2h9v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" fill="currentColor" fillOpacity="0.15" />
+    </svg>
   );
 }
 
-function IconPause() {
+function IconCheckCircle({ className }) {
   return (
-    <span className="feature-icon-wrap" aria-hidden>
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
-        <rect x="6" y="5" width="4" height="14" rx="1" fill="#fff" />
-        <rect x="14" y="5" width="4" height="14" rx="1" fill="#fff" />
-      </svg>
-    </span>
+    <svg className={className} viewBox="0 0 24 24" width="22" height="22" fill="none">
+      <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M8 12l2.5 2.5L16 9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
   );
 }
 
-function IconChart() {
+function IconPeople({ className }) {
   return (
-    <span className="feature-icon-wrap" aria-hidden>
-      <svg viewBox="0 0 24 24" width="28" height="28">
-        <rect x="4" y="14" width="4" height="6" rx="1" fill="#22c55e" />
-        <rect x="10" y="10" width="4" height="10" rx="1" fill="#f59e0b" />
-        <rect x="16" y="6" width="4" height="14" rx="1" fill="#6366f1" />
-      </svg>
-    </span>
+    <svg className={className} viewBox="0 0 24 24" width="22" height="22" fill="currentColor" fillOpacity="0.9">
+      <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V20h14v-3.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V20h6v-3.5c0-2.33-4.67-3.5-7-3.5z" />
+    </svg>
   );
 }
+
+function IconBolt({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+      <path d="M11 21l1-7H7.5l5-10h2.5l-1 7h4L11 21z" />
+    </svg>
+  );
+}
+
+const heroHighlights = [
+  {
+    tint: "hero-icon-purple",
+    Icon: IconFolder,
+    title: "Manage projects",
+    desc: "Create projects, add members, and keep work scoped.",
+  },
+  {
+    tint: "hero-icon-teal",
+    Icon: IconCheckCircle,
+    title: "Assign & track tasks",
+    desc: "Due dates, status, and overdue alerts built in.",
+  },
+  {
+    tint: "hero-icon-pink",
+    Icon: IconPeople,
+    title: "Collaborate seamlessly",
+    desc: "Role-based dashboards for admins and members.",
+  },
+  {
+    tint: "hero-icon-orange",
+    Icon: IconBolt,
+    title: "Automate workflows",
+    desc: "Keep momentum from pending through completion.",
+  },
+];
+
+const featureCards = [
+  {
+    tint: "feat-icon-purple",
+    Icon: IconFolder,
+    title: "Project management",
+    desc: "Spin up projects, invite your team, and see progress at a glance.",
+  },
+  {
+    tint: "feat-icon-teal",
+    Icon: IconCheckCircle,
+    title: "Task tracking",
+    desc: "Assign ownership, set priorities, and watch every task to the finish line.",
+  },
+  {
+    tint: "feat-icon-pink",
+    Icon: IconPeople,
+    title: "Team collaboration",
+    desc: "Everyone sees what matters with clear roles and shared context.",
+  },
+  {
+    tint: "feat-icon-orange",
+    Icon: IconBolt,
+    title: "Workflow speed",
+    desc: "Fast updates and real-time lists so nothing slips through the cracks.",
+  },
+];
+
+const hiwSteps = [
+  {
+    n: 1,
+    color: "#7c3aed",
+    title: "Create account",
+    desc: "Sign up as a member or use your org’s admin setup.",
+  },
+  {
+    n: 2,
+    color: "#06b6d4",
+    title: "Create projects",
+    desc: "Admins add projects and pull in the right people.",
+  },
+  {
+    n: 3,
+    color: "#ec4899",
+    title: "Assign tasks",
+    desc: "Set titles, owners, and due dates that everyone can follow.",
+  },
+  {
+    n: 4,
+    color: "#f97316",
+    title: "Track & deliver",
+    desc: "Update status from start to done with clarity on what’s left.",
+  },
+];
 
 export default function HomePage() {
+  const year = new Date().getFullYear();
+
   return (
-    <div className="public-home">
-      <header className="marketing-nav">
-        <Link to="/" className="brand-mark brand-mark-link">
-          <span className="brand-pink">TASK</span>{" "}
-          <span className="brand-blue">TRACKER</span>
+    <div className="land-home">
+      <header className="land-nav">
+        <Link to="/" className="land-brand">
+          <span className="land-brand-pink">TASK</span>
+          <span className="land-brand-navy"> MANAGER</span>
         </Link>
-        <nav className="marketing-links">
+        <nav className="land-nav-links">
           <Link to="/">Home</Link>
           <a href="#features">Features</a>
           <a href="#about">About</a>
           <Link to="/login">Login</Link>
-          <Link to="/register" className="marketing-cta">
+          <Link to="/register" className="land-nav-cta">
             Register
           </Link>
         </nav>
       </header>
 
-      <main className="marketing-hero-wrap">
-        <section className="marketing-hero-left">
-          <h1 className="marketing-title">
-            <span className="brand-pink">Simplify.</span>{" "}
-            <span className="brand-blue">Organize.</span>{" "}
-            <span className="brand-cyan">Automate.</span>
-          </h1>
-          <h2 className="marketing-subtitle">
-            Track tasks, coordinate teams, and monitor progress in one place.
-          </h2>
-          <p className="marketing-copy">
-            Team Task Manager helps admins and members work together across
-            multiple projects. Create projects, assign tasks, track deadlines,
-            and keep everyone aligned with role-based dashboards.
-          </p>
-          <div className="marketing-actions">
-            <Link to="/register" className="btn primary">
-              Get started
-            </Link>
-            <Link to="/login" className="btn ghost">
-              Sign in
-            </Link>
-          </div>
-        </section>
-        <section className="marketing-hero-right">
-          <div className="hero-card">
-            <h3>Smart team workflow</h3>
-            <ul>
-              <li>Admin creates projects and adds members</li>
-              <li>Tasks are assigned with due dates</li>
-              <li>Members update status in real-time</li>
-              <li>Overdue work is highlighted automatically</li>
-            </ul>
-          </div>
-        </section>
-      </main>
-
-      <section id="features" className="features-section">
-        <h2 className="features-heading">Features</h2>
-        <p className="features-sub">
-          Everything you need to run projects and track work in one place.
-        </p>
-        <div className="features-grid">
-          <article className="feature-card">
-            <div className="feature-card-accent" aria-hidden />
-            <IconBox />
-            <h3 className="feature-card-title">Project tracking</h3>
-            <p className="feature-card-desc">
-              Organize work by project. Admins create projects, assign members,
-              and see workload at a glance.
-            </p>
-          </article>
-          <article className="feature-card">
-            <div className="feature-card-accent" aria-hidden />
-            <IconPause />
-            <h3 className="feature-card-title">Flexible task flow</h3>
-            <p className="feature-card-desc">
-              Set status from pending to in progress to completed. Reassign or
-              remove tasks when priorities change.
-            </p>
-          </article>
-          <article className="feature-card">
-            <div className="feature-card-accent" aria-hidden />
-            <IconChart />
-            <h3 className="feature-card-title">Progress insights</h3>
-            <p className="feature-card-desc">
-              Dashboard summaries and overdue flags help teams stay on track
-              and finish on time.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      {/* <section id="about" className="about-strip">
-        <h3>About</h3>
-        <p>
-          Built with React + Flask + SQL, this app focuses on clean task
-          assignment and progress tracking for teams.
-        </p>
-      </section>
-
-      <section id="how-it-works" className="how-it-works-strip">
-        <h3 className="how-it-works-title">How it works</h3>
-        <ol className="how-it-works-list">
-          <li>
-            <strong>Sign up</strong> — members create an account; admin can be
-            seeded for your organization.
-          </li>
-          <li>
-            <strong>Build projects</strong> — admins add members and assign
-            tasks with due dates.
-          </li>
-          <li>
-            <strong>Track &amp; deliver</strong> — everyone updates status;
-            overdue items stay visible until done.
-          </li>
-        </ol>
-      </section> */}
-
-      <footer className="marketing-footer">
-        <div className="marketing-footer-inner">
-          <div className="footer-col footer-brand">
-            <div className="footer-logo">
-              <span className="brand-pink">TASK</span>{" "}
-              <span className="text-white">TRACKER</span>
+      <section className="land-hero">
+        <div className="land-hero-inner">
+          <div className="land-hero-copy">
+            <div className="land-hero-badge">
+              <span className="land-badge-icon" aria-hidden>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                </svg>
+              </span>
+              Built for productive teams
             </div>
-            <p className="footer-tagline">
-              Manage projects, tasks, and team progress in one place.
+            <h1 className="land-hero-title">
+              <span className="land-t-pink">Simplify.</span>{" "}
+              <span className="land-t-navy">Organize.</span>{" "}
+              <span className="land-t-teal">Automate.</span>
+            </h1>
+            <p className="land-hero-lead">
+              Track tasks, coordinate teams, and monitor progress in one place.
             </p>
-          </div>
-          <div className="footer-col">
-            <h4 className="footer-col-title">Quick Links</h4>
-            <ul className="footer-links">
+            <p className="land-hero-body">
+              Team Task Manager helps admins and members work together across
+              projects. Create workstreams, assign tasks, track deadlines, and
+              stay aligned with role-based dashboards.
+            </p>
+            <div className="land-hero-actions">
+              <Link to="/register" className="land-btn land-btn-primary-solid">
+                Get started 
+              </Link>
+              <Link to="/login" className="land-btn land-btn-outline">
+                Sign in
+              </Link>
+            </div>
+            <ul className="land-trust-row">
               <li>
-                <a href="#features">Features</a>
+                <span className="land-trust-ic green">✓</span> Easy to use
               </li>
               <li>
-                <a href="#how-it-works">How it works</a>
-              </li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h4 className="footer-col-title">Contact</h4>
-            <ul className="footer-contact">
-              <li>
-                <span className="footer-contact-icon" aria-hidden>
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6">
-                    <rect x="3" y="5" width="18" height="14" rx="2" />
-                    <path d="M3 7l9 6 9-6" />
-                  </svg>
-                </span>
-                <a href="mailto:support@tasktracker.com">support@tasktracker.com</a>
+                <span className="land-trust-ic blue">⚡</span> Real-time updates
               </li>
               <li>
-                <span className="footer-contact-icon" aria-hidden>
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.63 2.63a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.45-1.2a2 2 0 0 1 2.11-.45c.85.3 1.73.51 2.63.63A2 2 0 0 1 22 16.92z" />
-                  </svg>
-                </span>
-                <a href="tel:+919999999999">+91 99999 99999</a>
-              </li>
-              <li>
-                <span className="footer-contact-icon" aria-hidden>
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M12 2.2c3 0 3.2.01 4.3.06 1.1.04 1.7.24 2.1.4.5.2.9.45 1.3.85.4.4.65.8.85 1.3.16.4.36 1 .4 2.1.05 1.1.06 1.3.06 4.3s-.01 3.2-.06 4.3c-.04 1.1-.24 1.7-.4 2.1-.2.5-.45.9-.85 1.3-.4.4-.8.65-1.3.85-.4.16-1 .36-2.1.4-1.1.05-1.3.06-4.3.06s-3.2-.01-4.3-.06c-1.1-.04-1.7-.24-2.1-.4-.5-.2-.9-.45-1.3-.85-.4-.4-.65-.8-.85-1.3-.16-.4-.36-1-.4-2.1-.05-1.1-.06-1.3-.06-4.3s.01-3.2.06-4.3c.04-1.1.24-1.7.4-2.1.2-.5.45-.9.85-1.3.4-.4.8-.65 1.3-.85.4-.16 1-.36 2.1-.4 1.1-.05 1.3-.06 4.3-.06zm0 1.8c-3 0-3.2 0-4.3.05-.9.05-1.4.22-1.7.37-.4.17-.7.36-1 .66-.3.3-.49.6-.66 1-.15.3-.32.8-.37 1.7C2 8.8 2 9 2 12s0 3.2.05 4.3c.05.9.22 1.4.37 1.7.17.4.36.7.66 1 .3.3.6.49 1 .66.3.15.8.32 1.7.37 1.1.05 1.3.06 4.3.06s3.2 0 4.3-.05c.9-.05 1.4-.22 1.7-.37.4-.17.7-.36 1-.66.3-.3.49-.6.66-1 .15-.3.32-.8.37-1.7.05-1.1.06-1.3.06-4.3s0-3.2-.05-4.3c-.05-.9-.22-1.4-.37-1.7-.17-.4-.36-.7-.66-1-.3-.3-.6-.49-1-.66-.3-.15-.8-.32-1.7-.37-1.1-.05-1.3-.06-4.3-.06Zm0 3.4a5.4 5.4 0 1 1 0 10.8 5.4 5.4 0 0 1 0-10.8Zm0 1.8a3.6 3.6 0 1 0 0 7.2 3.6 3.6 0 0 0 0-7.2Zm5.76-4.64a1.26 1.26 0 1 1-2.52 0 1.26 1.26 0 0 1 2.52 0Z" />
-                  </svg>
-                </span>
-                <span>@task_tracker</span>
-              </li>
-              <li>
-                <span className="footer-contact-icon" aria-hidden>
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
-                </span>
-                <span>@task_tracker</span>
+                <span className="land-trust-ic purple">🛡</span> Secure &amp; reliable
               </li>
             </ul>
+          </div>
+
+          <div className="land-hero-panel">
+            <div className="land-hero-card">
+              <ul className="land-hero-list">
+                {heroHighlights.map(({ tint, Icon, title, desc }) => (
+                  <li key={title} className="land-hero-list-item">
+                    <span className={`land-hero-icon-tile ${tint}`} aria-hidden>
+                      <Icon />
+                    </span>
+                    <div>
+                      <div className="land-hero-list-title">{title}</div>
+                      <p className="land-hero-list-desc">{desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-        <div className="footer-rule" />
-        <p className="footer-copy">&copy; {new Date().getFullYear()} Task Tracker</p>
+      </section>
+
+      <section id="features" className="land-features">
+        <h2 className="land-section-title">
+          Powerful features to help{" "}
+          <span className="land-accent-purple">your team</span> succeed
+        </h2>
+        <p className="land-section-sub">
+          Everything you need to plan, track, and deliver work faster.
+        </p>
+        <div className="land-features-grid">
+          {featureCards.map(({ tint, Icon, title, desc }) => (
+            <article key={title} className="land-feature-card">
+              <div className={`land-feature-icon ${tint}`} aria-hidden>
+                <Icon />
+              </div>
+              <h3 className="land-feature-card-title">{title}</h3>
+              <p className="land-feature-card-desc">{desc}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="how-it-works" className="land-hiw">
+        <h2 className="land-section-title">
+          How it <span className="land-accent-purple">works</span>
+        </h2>
+        <p className="land-section-sub">Get started in just a few simple steps.</p>
+        <div className="land-hiw-track">
+          <div className="land-hiw-line" aria-hidden />
+          <div className="land-hiw-steps">
+            {hiwSteps.map((s) => (
+              <div key={s.n} className="land-hiw-step">
+                <div
+                  className="land-hiw-circle"
+                  style={{ background: s.color }}
+                >
+                  {s.n}
+                </div>
+                <h4 className="land-hiw-step-title">{s.title}</h4>
+                <p className="land-hiw-step-desc">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="about" className="land-about">
+        <h2 className="land-section-title">About</h2>
+        <p className="land-about-text">
+          Task Tracker is a team task management app with a React front end, Flask
+          API, and SQL storage — focused on assignment, progress, and overdue
+          visibility for distributed teams.
+        </p>
+      </section>
+
+      <section className="land-cta-wrap">
+        <div className="land-cta">
+          <div className="land-cta-text">
+            <h2 className="land-cta-title">Ready to boost your team&apos;s productivity?</h2>
+            <p className="land-cta-desc">
+              Join teams who use Task Tracker to ship work on time with less
+              overhead. Create an account or sign in to get going.
+            </p>
+          </div>
+          <div className="land-cta-buttons">
+            <Link to="/register" className="land-btn land-btn-white">
+              Get started 
+            </Link>
+            
+          </div>
+        </div>
+      </section>
+
+      <footer className="land-footer">
+        <div className="land-footer-top">
+          <div className="land-footer-brand">
+            <span className="land-brand-pink">TASK</span>
+            <span className="land-footer-brand-navy"> MANAGER</span>
+          </div>
+          {/* <nav className="land-footer-links" aria-label="Footer">
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <span className="land-footer-note">Pricing</span>
+            <span className="land-footer-note">Blog</span>
+            <a href="mailto:support@tasktracker.com">Contact</a>
+          </nav> */}
+          <div className="land-footer-social" aria-label="Social">
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="X">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 21.5h4V7.5h-4v14zM8 7.5v14h4v-7.5c0-2 1-3 2.5-3s2 1 2 2.5V21.5h4v-8.5c0-3.5-2-5-4.5-5-2 0-3.5 1-4 2.5V7.5H8z" />
+              </svg>
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.477 2 2 6.484 2 12.02c0 4.43 2.865 8.18 6.839 9.5.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.114 2.504.336 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.755 0 1.266-.012 2.286-.012 2.596 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.02C22 6.484 17.522 2 12 2z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <p className="land-footer-copy">
+          &copy; {year} Task Tracker. All rights reserved.
+        </p>
       </footer>
     </div>
   );

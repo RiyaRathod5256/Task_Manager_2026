@@ -110,101 +110,91 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="auth-page">
-      <div className="auth-card card">
-        <h1 className="auth-heading">
-          Create account
-        </h1>
-
-        <p className="auth-sub">
-          Join as a team member.
-        </p>
-
-        <form
-          onSubmit={submit}
-          className="auth-form"
-        >
-          {/* Error Message */}
-          {error && (
-            <div
-              className="banner error"
-              style={{
-                whiteSpace: "pre-line",
-              }}
-            >
-              {error}
-            </div>
-          )}
-
-          {/* Full Name */}
-          <label className="field">
-            <span>Full name</span>
-
-            <input
-              type="text"
-              value={fullName}
-              onChange={(e) =>
-                setFullName(e.target.value)
-              }
-              required
-              autoComplete="name"
-              placeholder="Enter your full name"
-            />
-          </label>
-
-          {/* Email */}
-          <label className="field">
-            <span>Email</span>
-
-            <input
-              type="email"
-              value={email}
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
-              required
-              autoComplete="email"
-              placeholder="Enter your email"
-            />
-          </label>
-
-          {/* Password */}
-          <label className="field">
-            <span>Password</span>
-
-            <input
-              type="password"
-              value={password}
-              onChange={(e) =>
-                setPassword(e.target.value)
-              }
-              required
-              autoComplete="new-password"
-              placeholder="Create a password"
-            />
-          </label>
-
-          {/* Submit Button */}
-          <button
-            className="btn primary block"
-            disabled={loading}
-            type="submit"
-          >
-            {loading
-              ? "Creating..."
-              : "Sign up"}
-          </button>
-        </form>
-
-        <p className="auth-foot">
-          Already have an account?{" "}
-          <Link
-            to="/login"
-            className="link"
-          >
-            Sign in
+    <div className="land-home auth-land auth-land-register">
+      <header className="land-nav">
+        <Link to="/" className="land-brand">
+          <span className="land-brand-pink">TASK</span>
+          <span className="land-brand-navy"> TRACKER</span>
+        </Link>
+        <nav className="land-nav-links">
+          <Link to="/">Home</Link>
+          <Link to="/#features">Features</Link>
+          <Link to="/#about">About</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/register" className="land-nav-cta">
+            Register
           </Link>
-        </p>
+        </nav>
+      </header>
+
+      <div className="auth-land-wrap">
+        <div className="auth-land-info">
+          <h1>Create your account</h1>
+          <p className="auth-land-desc" style={{ fontSize: "1.08rem", color: "#373a55", margin: "12px 0 0 0", lineHeight: 1.7 }}>
+            Join your team workspace and start collaborating on tasks,
+            assignments, and project milestones.
+          </p>
+        </div>
+
+        <div className="auth-card card auth-land-card">
+          <h2 className="auth-heading">Sign up</h2>
+          <p className="auth-sub">Register as a team member.</p>
+
+          <form onSubmit={submit} className="auth-form">
+            {error && (
+              <div className="banner error" style={{ whiteSpace: "pre-line" }}>
+                {error}
+              </div>
+            )}
+
+            <label className="field">
+              <span>Full name</span>
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+                autoComplete="name"
+                placeholder="Enter your full name"
+              />
+            </label>
+
+            <label className="field">
+              <span>Email</span>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                autoComplete="email"
+                placeholder="Enter your email"
+              />
+            </label>
+
+            <label className="field">
+              <span>Password</span>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                autoComplete="new-password"
+                placeholder="Create a password"
+              />
+            </label>
+
+            <button className="btn primary block" disabled={loading} type="submit">
+              {loading ? "Creating..." : "Sign up"}
+            </button>
+          </form>
+
+          <p className="auth-foot">
+            Already have an account?{" "}
+            <Link to="/login" className="link">
+              Sign in
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

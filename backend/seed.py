@@ -18,8 +18,8 @@ def seed():
     app = create_app()
     with app.app_context():
         db.create_all()
-        email = os.getenv("SEED_ADMIN_EMAIL", "admin@example.com").lower().strip()
-        password = os.getenv("SEED_ADMIN_PASSWORD", "admin123")
+        email = os.getenv("SEED_ADMIN_EMAIL", "admin12@gmail.com").lower().strip()
+        password = os.getenv("SEED_ADMIN_PASSWORD", "Admin123@")
         name = os.getenv("SEED_ADMIN_NAME", "Admin")
 
         existing = User.query.filter_by(email=email).first()

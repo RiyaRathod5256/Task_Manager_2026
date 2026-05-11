@@ -1140,366 +1140,697 @@ body.sidebar-collapsed .app-shell {
   color: #b91c1c;
 }
 
-.public-home {
+/* --- Landing page (Home) — TASK TRACKER marketing layout --- */
+.land-home {
   min-height: 100vh;
-  background: linear-gradient(130deg, #ffffff 0%, #f5f7ff 45%, #eef8ff 100%);
+  background: radial-gradient(120% 80% at 90% 0%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+    radial-gradient(100% 60% at 0% 20%, rgba(6, 182, 212, 0.07) 0%, transparent 45%),
+    linear-gradient(180deg, #ffffff 0%, #fafbff 50%, #ffffff 100%);
+  color: #1f2937;
 }
 
-.marketing-nav {
+.land-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   height: 72px;
-  border-bottom: 1px solid #e6e9f4;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
-  background: #fff;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e8ecf5;
 }
 
-.brand-mark {
+.land-brand {
   font-weight: 800;
-  letter-spacing: 0.06em;
-  font-size: 1.55rem;
-}
-
-.brand-mark-link {
+  letter-spacing: 0.08em;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
   text-decoration: none;
-  color: inherit;
 }
 
-.brand-pink {
-  color: #ec4899;
+.land-brand-pink {
+  color: #e91e8c;
 }
 
-.brand-blue {
-  color: #1e3a8a;
+.land-brand-navy {
+  color: #0f2749;
 }
 
-.brand-cyan {
+.land-nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.65rem, 2vw, 1.35rem);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.land-nav-links a {
+  text-decoration: none;
+  color: #374151;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.land-nav-links a:hover {
+  color: #7c3aed;
+}
+
+.land-nav-cta {
+  color: #fff !important;
+  background: linear-gradient(135deg, #ec4899, #a855f7);
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.35);
+}
+
+.land-nav-cta:hover {
+  filter: brightness(1.05);
+  color: #fff !important;
+}
+
+.land-hero {
+  padding: clamp(2rem, 5vw, 3.5rem) clamp(1rem, 4vw, 2.5rem) 2rem;
+}
+
+.land-hero-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.land-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(236, 72, 153, 0.1));
+  color: #5b21b6;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 1.1rem;
+}
+
+.land-badge-icon {
+  display: grid;
+  place-items: center;
+  opacity: 0.85;
+}
+
+.land-hero-title {
+  margin: 0;
+  font-size: clamp(2.25rem, 5vw, 3.4rem);
+  line-height: 1.08;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.land-t-pink {
+  color: #e91e8c;
+}
+
+.land-t-navy {
+  color: #0f2749;
+}
+
+.land-t-teal {
   color: #06b6d4;
 }
 
-.marketing-links {
-  display: flex;
-  align-items: center;
-  gap: 1.05rem;
-}
-
-.marketing-links a {
-  text-decoration: none;
-  color: #1f2937;
+.land-hero-lead {
+  margin: 1rem 0 0.5rem;
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem);
   font-weight: 600;
-  font-size: 0.92rem;
+  color: #1e293b;
+  line-height: 1.35;
 }
 
-.marketing-links a:hover {
-  color: var(--accent);
-}
-
-.marketing-links .marketing-cta {
-  color: #fff;
-  background: linear-gradient(135deg, #f472b6, #ec4899);
-  border-radius: 10px;
-  padding: 0.45rem 0.8rem;
-}
-
-.marketing-hero-wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2.5rem 2rem 1.5rem;
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  gap: 2rem;
-  align-items: start;
-}
-
-.marketing-title {
+.land-hero-body {
   margin: 0;
-  font-size: clamp(2rem, 4vw, 3.15rem);
-  line-height: 1.1;
+  max-width: 54ch;
+  color: #64748b;
+  font-size: 0.98rem;
+  line-height: 1.65;
 }
 
-.marketing-subtitle {
-  margin: 1rem 0 0.6rem;
-  font-size: clamp(1.2rem, 2vw, 1.8rem);
-  color: #111827;
-}
-
-.marketing-copy {
-  margin: 0;
-  color: #4b5563;
-  max-width: 62ch;
-}
-
-.marketing-actions {
-  margin-top: 1.4rem;
+.land-hero-actions {
+  margin-top: 1.75rem;
   display: flex;
-  gap: 0.65rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
-.marketing-hero-right .hero-card {
+.land-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.35rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.93rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.land-btn:hover {
+  transform: translateY(-1px);
+}
+
+.land-btn-primary-solid {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(124, 58, 237, 0.35);
+}
+
+.land-btn-outline {
   background: #fff;
-  border: 1px solid #dfe4f4;
-  border-radius: 18px;
-  padding: 1.2rem 1.3rem;
-  box-shadow: 0 20px 50px rgba(20, 24, 60, 0.08);
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
 }
 
-.hero-card h3 {
-  margin-top: 0;
-  font-size: 1.4rem;
-  color: #1e3a8a;
+.land-trust-row {
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1rem 1.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
 }
 
-.hero-card ul {
+.land-trust-ic {
+  display: inline-flex;
+  width: 1.35rem;
+  height: 1.35rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  margin-right: 0.35rem;
+  font-size: 0.75rem;
+}
+
+.land-trust-ic.green {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.land-trust-ic.blue {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.land-trust-ic.purple {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+.land-hero-panel {
+  min-width: 0;
+}
+
+.land-hero-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 1.35rem 1.25rem;
+  border: 1px solid #e8ecf5;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.1);
+}
+
+.land-hero-list {
   margin: 0;
-  padding-left: 1rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.land-hero-list-item {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+}
+
+.land-hero-icon-tile {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   display: grid;
-  gap: 0.6rem;
-  color: #374151;
+  place-items: center;
+  color: #fff;
 }
 
-.features-section {
-  background: #f3f6fb;
-  padding: 3.25rem 2rem 3.5rem;
-  text-align: center;
+.hero-icon-purple {
+  background: linear-gradient(145deg, #8b5cf6, #6d28d9);
 }
 
-.features-heading {
+.hero-icon-teal {
+  background: linear-gradient(145deg, #22d3ee, #0891b2);
+}
+
+.hero-icon-pink {
+  background: linear-gradient(145deg, #f472b6, #db2777);
+}
+
+.hero-icon-orange {
+  background: linear-gradient(145deg, #fb923c, #ea580c);
+}
+
+.land-hero-list-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #0f2749;
+  margin-bottom: 0.2rem;
+}
+
+.land-hero-list-desc {
   margin: 0;
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-size: 0.82rem;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+.land-section-title {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
   font-weight: 800;
-  color: #1e3a8a;
+  color: #0f2749;
   letter-spacing: -0.02em;
 }
 
-.features-sub {
-  margin: 0.55rem auto 0;
+.land-accent-purple {
+  color: #7c3aed;
+}
+
+.land-section-sub {
+  margin: 0.65rem auto 0;
+  text-align: center;
   max-width: 36rem;
-  color: #6b7280;
+  color: #64748b;
   font-size: 1.02rem;
 }
 
-.features-grid {
-  max-width: 1100px;
-  margin: 2.25rem auto 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
+.land-features {
+  padding: clamp(2.5rem, 6vw, 4rem) clamp(1rem, 4vw, 2.5rem);
+  background: linear-gradient(180deg, #f8fafc 0%, #fff 100%);
 }
 
-.feature-card {
-  position: relative;
+.land-features-grid {
+  max-width: 1160px;
+  margin: 2.5rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.land-feature-card {
   background: #fff;
+  border-radius: 16px;
+  padding: 1.75rem 1.35rem;
+  text-align: center;
+  border: 1px solid #eef2f7;
+  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.06);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.land-feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.1);
+}
+
+.land-feature-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
   border-radius: 14px;
-  padding: 1.65rem 1.35rem 1.5rem;
-  box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+
+.feat-icon-purple {
+  background: linear-gradient(145deg, #8b5cf6, #6d28d9);
+}
+
+.feat-icon-teal {
+  background: linear-gradient(145deg, #22d3ee, #0891b2);
+}
+
+.feat-icon-pink {
+  background: linear-gradient(145deg, #f472b6, #db2777);
+}
+
+.feat-icon-orange {
+  background: linear-gradient(145deg, #fb923c, #ea580c);
+}
+
+.land-feature-card-title {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f2749;
+}
+
+.land-feature-card-desc {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #64748b;
+  line-height: 1.55;
+}
+
+.land-hiw {
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(1rem, 4vw, 2.5rem);
+  background: #fff;
+}
+
+.land-hiw-track {
+  position: relative;
+  max-width: 1100px;
+  margin: 2.5rem auto 0;
+}
+
+.land-hiw-line {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 28px;
+  height: 2px;
+  background: linear-gradient(90deg, #e2e8f0, #cbd5e1, #e2e8f0);
+  border-radius: 2px;
+}
+
+.land-hiw-steps {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.land-hiw-step {
+  text-align: center;
+  padding: 0 0.35rem;
+}
+
+.land-hiw-circle {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1.15rem;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+}
+
+.land-hiw-step-title {
+  margin: 0 0 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f2749;
+}
+
+.land-hiw-step-desc {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.land-about {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem clamp(1rem, 4vw, 2.5rem) 2.5rem;
   text-align: center;
 }
 
-.feature-card-accent {
-  position: absolute;
-  top: 0;
-  left: 1.25rem;
-  right: 1.25rem;
-  height: 4px;
-  background: linear-gradient(90deg, #3b82f6, #60a5fa);
-  border-radius: 0 0 6px 6px;
+.land-about-text {
+  margin: 0.85rem 0 0;
+  color: #64748b;
+  line-height: 1.65;
+  font-size: 0.95rem;
 }
 
-.feature-icon-wrap {
-  margin-top: 0.35rem;
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #3b82f6, #2563eb);
+.land-cta-wrap {
+  padding: 0 clamp(1rem, 4vw, 2.5rem) 3rem;
+}
+
+.land-cta {
+  max-width: 1100px;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: clamp(2rem, 5vw, 3rem);
+  background: linear-gradient(105deg, #5b21b6 0%, #7c3aed 35%, #db2777 100%);
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #1e40af;
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  box-shadow: 0 24px 60px rgba(91, 33, 182, 0.35);
 }
 
-.feature-card-title {
-  margin: 1rem 0 0.5rem;
-  font-size: 1.12rem;
-  font-weight: 700;
-  color: #1e3a8a;
+.land-cta-title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
 }
 
-.feature-card-desc {
+.land-cta-desc {
   margin: 0;
-  font-size: 0.92rem;
+  max-width: 46ch;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 0.95rem;
   line-height: 1.55;
-  color: #6b7280;
 }
 
-.about-strip {
-  max-width: 1200px;
+.land-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.land-btn-white {
+  background: #fff;
+  color: #5b21b6;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.land-btn-ghost-white {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+}
+
+.land-btn-ghost-white:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.land-footer {
+  border-top: 1px solid #e8ecf5;
+  background: #fafbfc;
+  padding: 2.5rem clamp(1rem, 4vw, 2.5rem) 1.75rem;
+}
+
+.land-footer-top {
+  max-width: 1100px;
   margin: 0 auto;
-  border-top: 1px solid #e7eaf6;
-  padding: 2rem 2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
-.about-strip h3 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-.about-strip p {
-  color: #4b5563;
-  margin-bottom: 0;
-}
-
-.how-it-works-strip {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 0 2rem 2.5rem;
-}
-
-.how-it-works-title {
-  margin: 0 0 0.75rem;
+.land-footer-brand {
+  font-weight: 800;
+  letter-spacing: 0.06em;
   font-size: 1.15rem;
-  color: #1e3a8a;
 }
 
-.how-it-works-list {
-  margin: 0;
-  padding-left: 1.25rem;
-  color: #4b5563;
+.land-footer-brand-navy {
+  color: #0f2749;
+}
+
+.land-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.15rem;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.land-footer-links a {
+  color: #475569;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.land-footer-links a:hover {
+  color: #7c3aed;
+}
+
+.land-footer-note {
+  color: #94a3b8;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: default;
+}
+
+.land-footer-social {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.land-footer-social a {
+  color: #475569;
   display: grid;
-  gap: 0.5rem;
-  line-height: 1.5;
+  place-items: center;
+  padding: 0.35rem;
+}
+
+.land-footer-social a:hover {
+  color: #7c3aed;
+}
+
+.land-footer-copy {
+  margin: 2rem 0 0;
+  text-align: center;
+  font-size: 0.82rem;
+  color: #94a3b8;
 }
 
 .text-white {
   color: #fff;
 }
 
-.marketing-footer {
-  background: linear-gradient(165deg, #0c2d5c 0%, #0a1f3d 55%, #071528 100%);
-  color: rgba(255, 255, 255, 0.92);
-  padding: 2.75rem 2rem 1.5rem;
-}
+@media (max-width: 1024px) {
+  .land-features-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-.marketing-footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) minmax(0, 1.1fr);
-  gap: 2rem;
-  align-items: start;
-}
+  .land-hiw-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-.footer-logo {
-  font-weight: 800;
-  letter-spacing: 0.05em;
-  font-size: 1.35rem;
-  margin-bottom: 0.65rem;
-}
-
-.footer-tagline {
-  margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.78);
-  max-width: 28ch;
-}
-
-.footer-col-title {
-  margin: 0 0 0.85rem;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #fff;
-}
-
-.footer-links,
-.footer-contact {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-}
-
-.footer-links a {
-  color: rgba(255, 255, 255, 0.85);
-  text-decoration: none;
-  font-size: 0.93rem;
-}
-
-.footer-links a:hover {
-  color: #fff;
-  text-decoration: underline;
-}
-
-.footer-contact li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.88);
-}
-
-.footer-contact a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.footer-contact a:hover {
-  text-decoration: underline;
-}
-
-.footer-contact-icon {
-  flex-shrink: 0;
-  margin-top: 2px;
-  opacity: 0.9;
-}
-
-.footer-rule {
-  max-width: 1100px;
-  margin: 2rem auto 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-.footer-copy {
-  margin: 1rem 0 0;
-  text-align: center;
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.55);
+  .land-hiw-line {
+    display: none;
+  }
 }
 
 @media (max-width: 900px) {
-  .marketing-nav {
-    padding: 0 1rem;
-  }
-  .brand-mark {
-    font-size: 1.2rem;
-  }
-  .marketing-hero-wrap {
-    grid-template-columns: 1fr;
-    padding: 1.5rem 1rem 1rem;
-  }
-  .features-section {
-    padding: 2.25rem 1rem 2.5rem;
-  }
-  .features-grid {
+  .land-hero-inner {
     grid-template-columns: 1fr;
   }
-  .about-strip {
-    padding: 1.5rem 1rem;
+
+  .land-nav {
+    height: auto;
+    min-height: 64px;
+    padding-top: 0.65rem;
+    padding-bottom: 0.65rem;
   }
-  .how-it-works-strip {
-    padding: 0 1rem 2rem;
+
+  .land-cta {
+    flex-direction: column;
+    align-items: stretch;
   }
-  .marketing-footer-inner {
+
+  .land-cta-buttons {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .land-cta-buttons .land-btn {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .land-footer-top {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .land-footer-links {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .land-features-grid {
     grid-template-columns: 1fr;
-    gap: 1.75rem;
   }
-  .marketing-footer {
-    padding: 2rem 1rem 1.25rem;
+
+  .land-hiw-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Auth pages styled like landing page */
+.auth-land {
+  min-height: 100vh;
+}
+
+.auth-land-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 4vw, 2rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 460px);
+  gap: clamp(1.25rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.auth-land-info h1 {
+  margin: 0 0 0.6rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #0f2749;
+}
+
+.auth-land-info p {
+  margin: 0;
+  max-width: 48ch;
+  color: #64748b;
+  line-height: 1.65;
+}
+
+.auth-land-card {
+  width: 100%;
+  border: 1px solid #e8ecf5;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.1);
+}
+
+.auth-land-card .auth-heading {
+  margin-bottom: 0.25rem;
+}
+
+.auth-land-card .auth-sub {
+  margin-bottom: 1.1rem;
+}
+
+@media (max-width: 900px) {
+  .auth-land-wrap {
+    grid-template-columns: 1fr;
   }
 }
