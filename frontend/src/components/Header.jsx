@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext.jsx";
 
 export default function Header({ variant }) {
@@ -12,20 +12,14 @@ export default function Header({ variant }) {
   return (
     <header className="top-header">
       <div className="top-header-left">
-        {!isAdmin ? (
-          <button
-            type="button"
-            className="icon-btn"
-            aria-label="Menu"
-            onClick={() => document.body.classList.toggle("sidebar-collapsed")}
-          >
-            ☰
-          </button>
-        ) : (
-          <Link to="/admin/dashboard" className="header-admin-home">
-            Team Manager
-          </Link>
-        )}
+        <button
+          type="button"
+          className="icon-btn"
+          aria-label="Menu"
+          onClick={() => document.body.classList.toggle("sidebar-collapsed")}
+        >
+          ☰
+        </button>
         <h1 className="page-title">{title}</h1>
       </div>
 

@@ -56,10 +56,6 @@ a.link:hover {
   min-height: 100vh;
 }
 
-.app-shell--admin {
-  grid-template-columns: minmax(0, 1fr);
-}
-
 .sidebar {
   background: linear-gradient(180deg, #1d1f2f 0%, #141528 88%);
   color: #dfe3ff;
@@ -511,15 +507,86 @@ a.link:hover {
   box-sizing: border-box;
 }
 
-/* Wide enough for status + Delete; shell scrolls if the column is still tight */
+.projects-table-card .table-responsive-shell {
+  overflow-x: visible;
+  padding: 0 0 0.75rem;
+}
+
+/* Fit inside card: widen project, tighten other columns — no horizontal scroll */
 .nice-table-projects {
-  width: max-content;
-  min-width: 100%;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.nice-table-projects col.col-project-main {
+  width: 40%;
+}
+
+.nice-table-projects col.col-team-compact {
+  width: 14%;
+}
+
+.nice-table-projects col.col-tasks-compact {
+  width: 8%;
+}
+
+.nice-table-projects col.col-status-compact {
+  width: 22%;
+}
+
+.nice-table-projects col.col-actions-col {
+  width: 16%;
+  min-width: 7rem;
+}
+
+.nice-table-projects th,
+.nice-table-projects td {
+  padding-left: 0.65rem;
+  padding-right: 0.65rem;
+  overflow: hidden;
+}
+
+.nice-table-projects th {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nice-table-projects th:first-child,
+.nice-table-projects td:first-child {
+  padding-left: 1rem;
+}
+
+.nice-table-projects th:last-child,
+.nice-table-projects td:last-child {
+  padding-right: 1rem;
+}
+
+.nice-table-projects td:first-child .row-link.table-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.nice-table-projects .project-cell-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nice-table-projects .avatar-stack {
+  flex-wrap: nowrap;
 }
 
 .col-status-cell {
   white-space: nowrap;
   vertical-align: middle;
+}
+
+.nice-table-projects .status-select-compact {
+  max-width: 100%;
 }
 
 @media (max-width: 1100px) {
@@ -542,16 +609,13 @@ a.link:hover {
 
 .table-card {
   padding: 0;
-  /* Allow horizontal scroll when the table is wider than the grid column
-     (prevents Delete / controls from being clipped by overflow: hidden). */
   overflow-x: auto;
   overflow-y: visible;
   -webkit-overflow-scrolling: touch;
 }
 
-/* Inner shell handles horizontal scroll; card must not clip the scrollbar/buttons */
 .projects-table-card {
-  overflow: visible;
+  overflow-x: visible;
 }
 
 .card-head-split {
@@ -797,10 +861,17 @@ a.link:hover {
 .col-actions-right {
   text-align: right;
   white-space: nowrap;
-  width: 1%;
   vertical-align: middle;
-  padding-right: 1.25rem !important;
-  padding-left: 0.75rem;
+  box-sizing: border-box;
+}
+
+.nice-table-projects .col-actions-right {
+  width: 14%;
+}
+
+.nice-table-projects .btn.danger.sm {
+  padding-left: 0.65rem;
+  padding-right: 0.65rem;
 }
 
 .dashboard-toolbar {

@@ -270,13 +270,22 @@ export default function AdminDashboard() {
           </header>
           <div className="table-responsive-shell">
             <table className="nice-table nice-table-projects">
+              <colgroup>
+                <col className="col-project-main" />
+                <col className="col-team-compact" />
+                {/* <col className="col-tasks-compact" /> */}
+                <col className="col-status-compact" />
+                <col className="col-actions-col" />
+              </colgroup>
               <thead>
                 <tr>
-                  <th>Project</th>
-                  <th>Team</th>
-                  <th>Tasks</th>
-                  <th>Status</th>
-                  <th className="col-actions-right">Actions</th>
+                  <th scope="col">Project</th>
+                  <th scope="col">Team</th>
+                  {/* <th scope="col">Tasks</th> */}
+                  <th scope="col">Status</th>
+                  <th scope="col" className="col-actions-right">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -288,7 +297,7 @@ export default function AdminDashboard() {
                         className="thumb-placeholder"
                         style={{ background: p.thumbnail_color }}
                       />
-                      {p.name}
+                      <span className="project-cell-name">{p.name}</span>
                     </Link>
                   </td>
                   <td>
@@ -306,11 +315,11 @@ export default function AdminDashboard() {
                       )}
                     </div>
                   </td>
-                  <td>
+                  {/* <td>
                     <span className="mono-muted">
                       {p.tasks_summary.done}/{p.tasks_summary.total || 0}
                     </span>
-                  </td>
+                  </td> */}
               
                   <td className="col-status-cell">
                     <select
@@ -320,8 +329,8 @@ export default function AdminDashboard() {
                         toggleProjectStatus(p.id, e.target.value)
                       }
                     >
-                      <option value="in_progress">In Progress</option>
-                      <option value="completed">Completed</option>
+                      <option value="in_progress">Ongoing</option>
+                      <option value="completed">Complete</option>
                     </select>
                   </td>
                   <td className="col-actions-right">
