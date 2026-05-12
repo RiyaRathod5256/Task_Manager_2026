@@ -272,7 +272,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       <footer className="land-footer">
         <div className="land-footer-top">
           <div className="land-footer-brand">
