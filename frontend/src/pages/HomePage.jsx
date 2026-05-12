@@ -249,7 +249,7 @@ export default function HomePage() {
       <section id="about" className="land-about">
         <h2 className="land-section-title">About</h2>
         <p className="land-about-text">
-          Task Tracker is a team task management app with a React front end, Flask
+          Task Manager is a team task management app with a React front end, Flask
           API, and SQL storage — focused on assignment, progress, and overdue
           visibility for distributed teams.
         </p>
@@ -260,7 +260,7 @@ export default function HomePage() {
           <div className="land-cta-text">
             <h2 className="land-cta-title">Ready to boost your team&apos;s productivity?</h2>
             <p className="land-cta-desc">
-              Join teams who use Task Tracker to ship work on time with less
+              Join teams who use Task Manager to ship work on time with less
               overhead. Create an account or sign in to get going.
             </p>
           </div>
@@ -305,7 +305,7 @@ export default function HomePage() {
           </div>
         </div>
         <p className="land-footer-copy">
-          &copy; {year} Task Tracker. All rights reserved.
+          &copy; {year} Task Manager. All rights reserved.
         </p>
       </footer>
     </div>

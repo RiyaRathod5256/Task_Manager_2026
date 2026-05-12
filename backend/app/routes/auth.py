@@ -33,9 +33,12 @@ PASSWORD_PATTERN = (
     r'[A-Za-z\d@$!%*?&]{8,15}$'
 )
 
-# Full name: 2–120 chars, Unicode letters, spaces / . ' - between parts (matches DB column)
+# Full name: 2–120 chars, Unicode letters, spaces / . ' - between parts;
+# no same character repeated more than 5 times in a row (blocks 6+ in a run)
 FULL_NAME_PATTERN = re.compile(
-    r'^(?=.{2,120}$)[^\W\d_]+(?:[\s\'.\-]+[^\W\d_]+)*$',
+    r'^(?!.*(.)\1{5})'
+    r'(?=.{2,120}$)'
+    r'[^\W\d_]+(?:[\s\'.\-]+[^\W\d_]+)*$',
     re.UNICODE,
 )
 
@@ -68,7 +71,8 @@ def register():
         return jsonify({
             "error": (
                 "Full name must be 2–120 characters, use letters only, "
-                "and may include spaces, hyphens, apostrophes, or periods between parts."
+                "and may include spaces, hyphens, apostrophes, or periods between parts. "
+                "The same character cannot repeat more than 5 times in a row."
             )
         }), 400
 
